@@ -1,13 +1,32 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private bool isWalking;
+    public static Player Instance{ get; private set; }
+
+    public event EventHandler <OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+    public class OnSelectedCounterChangedEventArgs :  EventArgs 
+    { 
+        public ClearCounter selectedCounter; 
+    }   
+
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private GameInput gameInput;
-    private Vector3 lastInteractDir;
     [SerializeField] private LayerMask countersLayerMask;
+
+    private Vector3 lastInteractDir;
+    private bool isWalking;
     private ClearCounter selectedCounter;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError("Player has multiple instances.");
+        }
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -52,17 +71,15 @@ public class Player : MonoBehaviour
                 //Has ClearCounter
                 if(clearCounter != selectedCounter)
                 {
-                    selectedCounter = clearCounter;
+                    SetSelectedCounter(clearCounter);
                 }
             } 
              else {
-                selectedCounter = null;
+                SetSelectedCounter(null);
             }
         } else {
-            selectedCounter = null;
+            SetSelectedCounter(null);
         }
-
-        Debug.Log(selectedCounter);
     }
 
     private void HandleMovement()
@@ -119,5 +136,14 @@ public class Player : MonoBehaviour
         float rotateSpeed = 10f;
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
         Debug.Log(Time.deltaTime);
+    }
+
+    private void SetSelectedCounter(ClearCounter selectedCounter)
+    {
+        this.selectedCounter = selectedCounter;
+
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs{
+            selectedCounter = selectedCounter
+        });
     }
 }
