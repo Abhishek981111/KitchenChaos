@@ -1,12 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatesCounter : BaseCounter
 {
+    public event EventHandler OnPlateSpawned;
+
     [SerializeField] private KitchenObjectsSO plateKitchenObjectSO;
+
     private float spawnPlateTimer;
     private float spawnPlateTimerMax = 4f;
+    private int platesSpawnedAmount;
+    private int platesSpawnedAmountMax = 4;
+
 
     private void Update()
     {
@@ -14,7 +21,14 @@ public class PlatesCounter : BaseCounter
 
         if (spawnPlateTimer > spawnPlateTimerMax)
         {
-            KitchenObjects.SpawnKitchenObject(plateKitchenObjectSO, this);
+            spawnPlateTimer = 0f;
+
+            if(platesSpawnedAmount < platesSpawnedAmountMax)
+            {
+                platesSpawnedAmount++;
+
+                OnPlateSpawned?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 }
