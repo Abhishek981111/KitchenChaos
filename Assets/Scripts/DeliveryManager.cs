@@ -19,7 +19,7 @@ public class DeliveryManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
+
         waitingRecipeSOList = new List<RecipeSO>();
     }
 
@@ -83,5 +83,10 @@ public class DeliveryManager : MonoBehaviour
         //No matches found
         //Player did not deliver a correct recipe
         Debug.Log("Player did not deliver a correct recipe xxx");
+    }
+
+    public List<RecipeSO> GetWaitingRecipeSOList()
+    {
+        return waitingRecipeSOList;
     }
 }
