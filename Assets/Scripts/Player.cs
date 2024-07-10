@@ -5,6 +5,8 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 {
     public static Player Instance{ get; private set; }
 
+
+    public event EventHandler OnPickedSomething;
     public event EventHandler <OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs :  EventArgs 
     { 
@@ -146,7 +148,6 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         // For smooth rotations
         float rotateSpeed = 10f;
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-        //Debug.Log(Time.deltaTime);
     }
 
     private void SetSelectedCounter(BaseCounter selectedCounter)
@@ -166,6 +167,11 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     public void SetKitchenObject(KitchenObjects kitchenObject)
     {
         this.kitchenObject = kitchenObject;
+
+        if(kitchenObject != null)
+        {
+            OnPickedSomething?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public KitchenObjects GetKitchenObject()
