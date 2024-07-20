@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class OptionsUI : MonoBehaviour
+{
+    [SerializeField] private Button soundEffectsButton;
+    [SerializeField] private Button musicButton;
+    [SerializeField] private TextMeshProUGUI soundEffectsText;
+    [SerializeField] private TextMeshProUGUI musicText;
+
+
+    private void Awake()
+    {
+        soundEffectsButton.onClick.AddListner(() => {
+            SoundManager.Instance.ChangeVolume();
+            UpdateVisual();
+        });                                                         //Lambda Expression
+
+        musicButton.onClick.AddListner(() => {
+            //TBC
+        });                                                         //Lambda Expression
+    }
+
+    private void Start()
+    {
+        UpdateVisual();
+    }
+
+    private void UpdateVisual()
+    {
+        soundEffectsText.text = "Sound Effects: " + Mathf.Round(SoundManager.Instance.GetVolume() * 10f);
+    }
+
+}
