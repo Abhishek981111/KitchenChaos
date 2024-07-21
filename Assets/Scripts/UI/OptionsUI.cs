@@ -20,7 +20,8 @@ public class OptionsUI : MonoBehaviour
         });                                                         //Lambda Expression
 
         musicButton.onClick.AddListener(() => {
-            //TBC
+            MusicManager.Instance.ChangeVolume();   
+            UpdateVisual();
         });                                                         //Lambda Expression
     }
 
@@ -32,6 +33,7 @@ public class OptionsUI : MonoBehaviour
     private void UpdateVisual()
     {
         soundEffectsText.text = "Sound Effects: " + Mathf.Round(SoundManager.Instance.GetVolume() * 10f);
+        musicText.text = "Music: " + Mathf.Round(MusicManager.Instance.GetVolume() * 10f);
     }
 
 }
