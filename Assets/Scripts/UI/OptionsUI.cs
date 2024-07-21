@@ -14,12 +14,12 @@ public class OptionsUI : MonoBehaviour
 
     private void Awake()
     {
-        soundEffectsButton.onClick.AddListner(() => {
+        soundEffectsButton.onClick.AddListener(() => {
             SoundManager.Instance.ChangeVolume();
             UpdateVisual();
         });                                                         //Lambda Expression
 
-        musicButton.onClick.AddListner(() => {
+        musicButton.onClick.AddListener(() => {
             //TBC
         });                                                         //Lambda Expression
     }
