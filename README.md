@@ -1,7 +1,7 @@
 # KitchenChaos
 
 
-**## Summary**
+**## Summary ##**
 KitchenChaos is a Unity game project where players work in a 
 chaotic kitchen environment to fulfill orders under time pressure. 
 Players manage cooking tasks, combine ingredients, use kitchen stations 
@@ -9,7 +9,7 @@ Players manage cooking tasks, combine ingredients, use kitchen stations
 food orders before the time runs out.
 
 
-**## Key Features & Game Mechanics**
+**## Key Features & Game Mechanics : ##**
 1. Order Management: Orders appear and must be completed in a timely manner.
 2. Ingredient Collection & Preparation: Players need to pick up raw ingredients, cut or cook them, plate them properly.
 3. Kitchen Stations: Multiple action points (e.g., chopping, cooking, plating) where different parts of an order are prepared.
@@ -17,7 +17,7 @@ food orders before the time runs out.
 5. Timer / Time limit: Gameplay probably constrained by time; orders must be fulfilled before timeout.
 
 
-**## Controls**
+**## Controls : ##**
 A. For Keyboard : 
  1. | Move chef | WASD / Arrow keys |
  2. | Kitchen Object/Food Pick up & drop | (Keyboard "E" ) |
@@ -31,7 +31,7 @@ B. For GamePad :
  4. | Pause Game | Start GamePad |
 
 
-**## Best Code Practices in KitchenChaos**
+**## Best Code Practices in KitchenChaos : ##**
 1. Separation of Concerns : Scripts are split into Managers, Components, and UI logic instead of cramming everything into one file. Example: GameManager handles global game state (start, pause, game over). DeliveryManager handles order spawning / checking. PlayerController only handles player movement + interactions. 👉 This keeps each script focused on one responsibility (SRP from SOLID principles).
 2. Event-Driven Architecture : Uses C# events / delegates (or UnityEvents) to notify systems of changes (like “OnRecipeDelivered”, “OnStateChanged”). This decouples systems — e.g., the UI doesn’t need to constantly poll the game; it just listens for events. 👉 Helps in scalability: new UI panels or sounds can subscribe without modifying the core game logic.
 3. ScriptableObjects for Data : Recipe definitions, kitchen objects, and order data are stored as ScriptableObjects instead of hard-coding values. Example: A RecipeSO might contain a list of required ingredients. Easy to extend — just make a new ScriptableObject asset, no code changes needed.
@@ -44,7 +44,7 @@ B. For GamePad :
 10. 10. Error Handling & Null Checks : Scripts often guard against null references (checking if a slot is occupied before adding an ingredient). Prevents runtime crashes in Unity.
 
  
-**##Why These Practices Matter**
+**##Why These Practices Matter : ##**
 These practices make the project:
 1. Scalable (easy to add new recipes, kitchen stations, or features)
 2. Maintainable (small scripts, less spaghetti code)
